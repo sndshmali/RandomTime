@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christmas Song</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: url("https://source.unsplash.com/1600x900/?christmas")
+          no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+      }
+
+      button {
+        padding: 15px 30px;
+        font-size: 20px;
+        color: white;
+        background: #ff4040;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, background 0.2s;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+        background: #ff7373;
+      }
+
+      button:active {
+        transform: scale(1.05);
+        background: #ff2020;
+      }
+
+      #timer {
+        font-size: 18px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-top: 10px;
+        display: none; /* Initially hidden */
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="playButton">Play Christmas Song</button>
+      <div id="timer">Waiting...</div>
+      <!-- Timer display -->
+    </div>
+
+    <!-- Audio Element src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"-->
+    <audio id="christmasSong" src="song.mp3"></audio>
+
+    <script>
+      const button = document.getElementById("playButton");
+      const timerDiv = document.getElementById("timer");
+      const audio = document.getElementById("christmasSong");
+
+      button.addEventListener("click", () => {
+        // Generate a random play duration between 40 and 60 seconds
+        const randomPlayDuration = Math.floor(Math.random() * 21) + 40; // 40 to 60 seconds
+
+        // Display play duration
+        timerDiv.style.display = "block";
+        timerDiv.innerText = `The song will play for ${randomPlayDuration} seconds...`;
+
+        // Play the audio
+        audio.play();
+
+        // Stop the audio after the random duration
+        setTimeout(() => {
+          audio.pause();
+          audio.currentTime = 0; // Reset the song to the beginning
+          timerDiv.style.display = "none"; // Hide the timer
+        }, randomPlayDuration * 1000);
+
+        // Update button text during the song
+        button.innerText = "Song Playing 🎶";
+        setTimeout(() => {
+          button.innerText = "Play Christmas Song";
+        }, randomPlayDuration * 1000);
+      });
+    </script>
+  </body>
+</html>
